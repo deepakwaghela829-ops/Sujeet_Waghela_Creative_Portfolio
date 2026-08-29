@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer base {
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Figtree', sans-serif;
+    overflow-x: hidden;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+/* Hide scrollbars for chrome/safari/firefox */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Keyframe Animations */
+@keyframes videoFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes dotPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.45);
+  }
+}
+
+/* Animation Utility Classes */
+.animate-reveal-up {
+  animation: revealUp 0.9s var(--ease-spring) forwards;
+}
+
+.animate-reveal-right {
+  animation: revealRight 0.9s var(--ease-spring) forwards;
+}
+
+.animate-dot-pulse {
+  animation: dotPulse 1.6s ease-in-out infinite;
+}
+
+/* Underline slide effect on hover */
+.nav-link-underline {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.nav-link-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s var(--ease-spring);
+}
+
+.nav-link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Role link switcher hover shift */
+.role-link {
+  transition: transform 0.35s var(--ease-spring), opacity 0.3s ease;
+}
+
+.role-link:hover {
+  transform: translateX(4px);
+}
+
+/* CTA button fill-up hover effect */
+.cta-button {
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease-spring), color 0.4s var(--ease-spring);
+  z-index: 1;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: #F598F2;
+  transform: translateY(101%);
+  transition: transform 0.4s var(--ease-spring);
+  z-index: -1;
+}
+
+.cta-button:hover {
+  border-color: #F598F2 !important;
+  color: #000000 !important;
+}
+
+.cta-button:hover::before {
+  transform: translateY(0);
+}
+
+/* Mobile expandable menu grid transition fix */
+.mobile-menu-grid {
+  display: grid !important;
+  transition: grid-template-rows 350ms var(--ease-spring), padding 350ms var(--ease-spring);
+}
+
+.mobile-menu-grid-closed {
+  grid-template-rows: 0fr !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom-width: 0 !important;
+}
+
+.mobile-menu-grid-open {
+  grid-template-rows: 1fr !important;
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
